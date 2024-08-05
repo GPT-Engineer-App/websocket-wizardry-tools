@@ -13,15 +13,11 @@ const phoneRegex = /^\+\d{1,4}\s?\d{6,14}$/;
 
 const schema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters" }),
-  surname: z.string().min(2, { message: "Surname must be at least 2 characters" }),
-  phone: z.string().regex(phoneRegex, { message: "Invalid phone number" }),
-  email: z.string().email().refine(email => email.endsWith('@gmail.com'), {
-    message: "Only gmail.com addresses are allowed"
-  }),
+  email: z.string().email({ message: "Invalid email address" }),
+  favoriteTeam: z.string().min(1, { message: "Please select your favorite team" }),
   privacyMandatory: z.boolean().refine(value => value === true, {
-    message: "You must accept the mandatory privacy policy"
+    message: "You must accept the privacy policy"
   }),
-  privacyMarketing: z.boolean(),
   recaptcha: z.string().min(1, { message: "Please complete the reCAPTCHA" }),
 });
 
@@ -39,51 +35,39 @@ const LeadGenerationForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div>
         <Label htmlFor="name">Name</Label>
-        <Input id="name" {...register('name')} />
-        {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-      </div>
-
-      <div>
-        <Label htmlFor="surname">Surname</Label>
-        <Input id="surname" {...register('surname')} />
-        {errors.surname && <p className="text-red-500">{errors.surname.message}</p>}
-      </div>
-
-      <div>
-        <Label htmlFor="phone">Phone</Label>
-        <div className="flex">
-          <Select onValueChange={(value) => register('phonePrefix').onChange(value)} defaultValue="+1">
-            <SelectTrigger className="w-[80px]">
-              <SelectValue placeholder="Prefix" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="+1">+1</SelectItem>
-              <SelectItem value="+44">+44</SelectItem>
-              <SelectItem value="+91">+91</SelectItem>
-              {/* Add more country codes as needed */}
-            </SelectContent>
-          </Select>
-          <Input id="phone" {...register('phone')} className="flex-1 ml-2" />
-        </div>
-        {errors.phone && <p className="text-red-500">{errors.phone.message}</p>}
+        <Input id="name" {...register('name')} className="bg-gray-100" />
+        {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
       </div>
 
       <div>
         <Label htmlFor="email">Email</Label>
-        <Input id="email" type="email" {...register('email')} />
-        {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+        <Input id="email" type="email" {...register('email')} className="bg-gray-100" />
+        {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+      </div>
+
+      <div>
+        <Label htmlFor="favoriteTeam">Favorite F1 Team</Label>
+        <Select onValueChange={(value) => register('favoriteTeam').onChange(value)}>
+          <SelectTrigger className="w-full bg-gray-100">
+            <SelectValue placeholder="Select your favorite team" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="mercedes">Mercedes</SelectItem>
+            <SelectItem value="red_bull">Red Bull Racing</SelectItem>
+            <SelectItem value="ferrari">Ferrari</SelectItem>
+            <SelectItem value="mclaren">McLaren</SelectItem>
+            <SelectItem value="aston_martin">Aston Martin</SelectItem>
+            {/* Add more teams as needed */}
+          </SelectContent>
+        </Select>
+        {errors.favoriteTeam && <p className="text-red-500 text-sm">{errors.favoriteTeam.message}</p>}
       </div>
 
       <div className="flex items-center space-x-2">
         <Checkbox id="privacyMandatory" {...register('privacyMandatory')} />
-        <Label htmlFor="privacyMandatory">I accept the mandatory privacy policy</Label>
+        <Label htmlFor="privacyMandatory" className="text-sm">I accept the privacy policy and terms of service</Label>
       </div>
-      {errors.privacyMandatory && <p className="text-red-500">{errors.privacyMandatory.message}</p>}
-
-      <div className="flex items-center space-x-2">
-        <Checkbox id="privacyMarketing" {...register('privacyMarketing')} />
-        <Label htmlFor="privacyMarketing">I accept to receive marketing communications</Label>
-      </div>
+      {errors.privacyMandatory && <p className="text-red-500 text-sm">{errors.privacyMandatory.message}</p>}
 
       <Controller
         name="recaptcha"
@@ -95,9 +79,9 @@ const LeadGenerationForm = () => {
           />
         )}
       />
-      {errors.recaptcha && <p className="text-red-500">{errors.recaptcha.message}</p>}
+      {errors.recaptcha && <p className="text-red-500 text-sm">{errors.recaptcha.message}</p>}
 
-      <Button type="submit">Submit</Button>
+      <Button type="submit" className="w-full bg-red-600 hover:bg-red-700 text-white">Join the F1 Fan Club</Button>
     </form>
   );
 };
