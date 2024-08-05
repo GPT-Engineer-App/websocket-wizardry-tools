@@ -1,20 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import LeadGenerationForm from '@/components/LeadGenerationForm';
-import { Button } from "@/components/ui/button";
 import { navItems } from '@/nav-items';
-import { Trophy, Flag, Clock } from 'lucide-react';
+import { Mail, Bell, Gift, Star } from 'lucide-react';
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-red-600 to-red-800">
-      <nav className="bg-black text-white shadow-md p-4">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-500 to-purple-600">
+      <nav className="bg-white text-gray-800 shadow-md p-4">
         <ul className="flex space-x-4">
           {navItems.map((item) => (
             <li key={item.to}>
               <Link 
                 to={item.to} 
-                className="flex items-center space-x-2 text-white hover:text-red-400"
+                className="flex items-center space-x-2 text-gray-800 hover:text-blue-600"
               >
                 {item.icon}
                 <span>{item.title}</span>
@@ -27,29 +26,29 @@ const Index = () => {
         <div className="w-full max-w-4xl bg-white rounded-lg shadow-2xl overflow-hidden">
           <div className="flex flex-col md:flex-row">
             <div className="md:w-1/2 p-8">
-              <h1 className="text-4xl font-bold mb-6 text-red-600">Join the F1 Fan Club!</h1>
-              <p className="mb-6 text-gray-700">Get exclusive updates, ticket pre-sales, and more!</p>
+              <h1 className="text-4xl font-bold mb-6 text-blue-600">Join Our Newsletter!</h1>
+              <p className="mb-6 text-gray-700">Stay updated with our latest news, offers, and more!</p>
               <div className="grid grid-cols-2 gap-4 mb-6">
                 <div className="flex items-center">
-                  <Trophy className="text-yellow-500 mr-2" />
-                  <span>Exclusive Content</span>
+                  <Mail className="text-blue-500 mr-2" />
+                  <span>Weekly Updates</span>
                 </div>
                 <div className="flex items-center">
-                  <Flag className="text-red-500 mr-2" />
-                  <span>Race Updates</span>
+                  <Bell className="text-purple-500 mr-2" />
+                  <span>Important Alerts</span>
                 </div>
                 <div className="flex items-center">
-                  <Clock className="text-blue-500 mr-2" />
-                  <span>Live Timing</span>
+                  <Gift className="text-green-500 mr-2" />
+                  <span>Exclusive Offers</span>
                 </div>
                 <div className="flex items-center">
-                  <Trophy className="text-green-500 mr-2" />
-                  <span>Win Prizes</span>
+                  <Star className="text-yellow-500 mr-2" />
+                  <span>VIP Content</span>
                 </div>
               </div>
               <LeadGenerationForm />
             </div>
-            <div className="md:w-1/2 bg-cover bg-center" style={{backgroundImage: "url('https://images.unsplash.com/photo-1541773367336-d3f7cca0e58f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"}}>
+            <div className="md:w-1/2 bg-cover bg-center" style={{backgroundImage: "url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"}}>
             </div>
           </div>
         </div>
