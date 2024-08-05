@@ -1,12 +1,24 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { navItems } from '@/nav-items';
 
 const Infos = () => {
   const navigate = useNavigate();
 
   return (
     <div className="min-h-screen flex flex-col">
+      <nav className="bg-white shadow-md p-4">
+        <ul className="flex space-x-4">
+          {navItems.map((item) => (
+            <li key={item.to}>
+              <Link to={item.to} className="text-blue-600 hover:text-blue-800">
+                {item.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
       {/* Hero Banner */}
       <div className="relative h-96">
         <img 
