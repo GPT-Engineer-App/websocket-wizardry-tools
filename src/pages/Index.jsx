@@ -33,8 +33,12 @@ const Index = () => {
         <ul className="flex space-x-4">
           {navItems.map((item) => (
             <li key={item.to}>
-              <Link to={item.to} className="text-blue-600 hover:text-blue-800">
-                {item.title}
+              <Link 
+                to={item.to} 
+                className="flex items-center space-x-2 text-blue-600 hover:text-blue-800"
+              >
+                {item.icon}
+                <span>{item.title}</span>
               </Link>
             </li>
           ))}
