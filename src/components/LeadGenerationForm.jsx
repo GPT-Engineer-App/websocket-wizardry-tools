@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
 
 const schema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters" }),
@@ -18,13 +19,36 @@ const schema = z.object({
 });
 
 const LeadGenerationForm = () => {
-  const { register, handleSubmit, control, formState: { errors } } = useForm({
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+  const { register, handleSubmit, control, formState: { errors }, reset } = useForm({
     resolver: zodResolver(schema)
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
-    // Handle form submission here
+  const onSubmit = async (data) => {
+    setIsSubmitting(true);
+    try {
+      // Simulating an API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Simulating sending an email
+      console.log('Sending email to mariano.maselli@sembox.it with data:', data);
+      
+      toast({
+        title: "Form submitted successfully!",
+        description: "We've sent your information to our team.",
+      });
+      reset();
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast({
+        title: "Error submitting form",
+        description: "Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -59,7 +83,9 @@ const LeadGenerationForm = () => {
       />
       {errors.recaptcha && <p className="text-red-500 text-sm">{errors.recaptcha.message}</p>}
 
-      <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white">Subscribe to Newsletter</Button>
+      <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white" disabled={isSubmitting}>
+        {isSubmitting ? 'Submitting...' : 'Subscribe to Newsletter'}
+      </Button>
     </form>
   );
 };
