@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import LeadGenerationForm from '@/components/LeadGenerationForm';
 import { Button } from "@/components/ui/button";
+import { navItems } from '@/nav-items';
 
 const Index = () => {
   const [bgColor, setBgColor] = useState('bg-gray-100');
@@ -26,7 +28,19 @@ const Index = () => {
   };
 
   return (
-    <div className={`min-h-screen flex flex-col items-center justify-center ${bgColor}`}>
+    <div className={`min-h-screen flex flex-col ${bgColor}`}>
+      <nav className="bg-white shadow-md p-4">
+        <ul className="flex space-x-4">
+          {navItems.map((item) => (
+            <li key={item.to}>
+              <Link to={item.to} className="text-blue-600 hover:text-blue-800">
+                {item.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <div className="flex-grow flex items-center justify-center">
       <div className="w-full max-w-2xl p-6 bg-white rounded-lg shadow-md">
         <h1 className="text-3xl font-bold mb-6 text-center">Lead Generation Form</h1>
         <LeadGenerationForm />

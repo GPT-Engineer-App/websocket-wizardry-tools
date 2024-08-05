@@ -1,14 +1,21 @@
-import { Home, Radio } from "lucide-react";
+import { Home, Radio, Info } from "lucide-react";
 import Index from "./pages/Index.jsx";
+import Infos from "./pages/Infos.jsx";
 
 /**
  * Central place for defining the navigation items. Used for navigation components and routing.
  */
 export const navItems = [
   {
-    title: "WebSocket Tools",
+    title: "Home",
     to: "/",
-    icon: <Radio className="h-4 w-4" />,
+    icon: <Home className="h-4 w-4" />,
     page: <Index />,
+  },
+  {
+    title: "Infos",
+    to: "/infos",
+    icon: <Info className="h-4 w-4" />,
+    page: <Infos />,
   },
 ];
